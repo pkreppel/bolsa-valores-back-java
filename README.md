@@ -1,6 +1,8 @@
 # bolsa-valores-back-java
 
 ## Aplicação java spring boot com circuit breaker Netflix Hystrix.
+Esta aplicação consome uma API da B3 e retorna dados do ticker enviado, de acordo com a data. O ticker e a data devem ser passados na rota como detalho mais abaixo.
+
 - Executar o docker compose na raiz:
   - Cria a imagem da aplicação java
   - Cria a imagem nginx com as configurações de proxy reverso
