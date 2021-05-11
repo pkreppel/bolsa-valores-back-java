@@ -1,0 +1,73 @@
+version: '3'
+
+services:
+
+  proxy:
+    container_name: bolsa-proxy
+    image: bolsaback-nginx
+    build:
+      context: ./nginx
+    ports:
+      - "20001:80"
+    depends_on:
+      - back01
+      - back02
+      - back03
+      - back04
+      - back05
+    networks:
+      - bolsa-network
+
+  back01:
+    container_name: bolsa-backend01
+    image: b3-circuit-breaker
+    build:
+      context: .
+    ports:
+      - "20002:8080"
+    networks:
+      - bolsa-network
+
+  back02:
+    container_name: bolsa-backend02
+    image: b3-circuit-breaker
+    ports:
+      - "20003:8080"
+    depends_on:
+      - back01
+    networks:
+      - bolsa-network
+
+  back03:
+    container_name: bolsa-backend03
+    image: b3-circuit-breaker
+    ports:
+      - "20004:8080"
+    depends_on:
+      - back01
+    networks:
+      - bolsa-network
+
+  back04:
+    container_name: bolsa-backend04
+    image: b3-circuit-breaker
+    ports:
+      - "20005:8080"
+    depends_on:
+      - back01
+    networks:
+      - bolsa-network
+
+  back05:
+    container_name: bolsa-backend05
+    image: b3-circuit-breaker
+    ports:
+      - "20006:8080"
+    depends_on:
+      - back01
+    networks:
+      - bolsa-network
+
+networks:
+  bolsa-network:
+    driver: bridge
